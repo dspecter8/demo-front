@@ -6,9 +6,15 @@
 				<div class="panel-body">
 					<table>
 						<tr>
-							<td>
-								<img src=""/>
+							<td rowspan="3">
+								<img  height="100" src="{{this.catService.host+'/photoProduct/'+p.id}}"/>
 							</td>
+						</tr>
+						<tr>
+						<td>{{p.description}}</td>
+						</tr>
+						<tr>
+						<td>{{p.currentPrice | number :'0.2'}}</td>
 						</tr>
 					</table>
 				</div>
