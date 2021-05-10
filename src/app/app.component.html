@@ -16,7 +16,7 @@
       <a class="navbar-brand" href="#">E-Com-Front</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
+      <li class="active"><a class="clickable" (click)="onSelectedProducts()">Home</a></li>
       <li><a href="#">Category</a></li>
       <li><a href="#">Product</a></li>
     </ul>
@@ -32,7 +32,7 @@
 <div class="container">
   <div class="col-md-3">
     <ul class="list-group" *ngIf="categories">
-      <li class="list-group-item" *ngFor="let c of categories._embedded.categories">
+      <li [ngClass] ="currentCategory==c?'active':''" (click)="getProductsByCat(c)" class="list-group-item clickable" *ngFor="let c of categories._embedded.categories">
         {{c.name}}
       </li>
     </ul>
