@@ -9,6 +9,9 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 })
 export class ProductsComponent implements OnInit {
   private products;
+  private editPhoto : boolean;
+  private currentProduct: any;
+  private selectedfile: any;
 
   constructor(private catService: CatalogueService,
     private route: ActivatedRoute,
@@ -45,5 +48,13 @@ export class ProductsComponent implements OnInit {
       console.log(err);
     })
   }
+  onEditPhoto(p){
+    this.currentProduct=p;
+        this.editPhoto =true; 
+       
+    }
+    OnSelectedfile(event){
+      this.selectedfile=event.target.file;
+    }
 
 }
