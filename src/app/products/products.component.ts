@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogueService } from '../catalogue.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-products',
@@ -10,8 +11,10 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 export class ProductsComponent implements OnInit {
   private products;
   private editPhoto : boolean;
-  private currentProduct: any;
-  private selectedfile: any;
+  private currentProduct;
+  private selectedfiles;
+  private progress: number;
+  private currentFileUpload :any;
 
   constructor(private catService: CatalogueService,
     private route: ActivatedRoute,
@@ -54,7 +57,23 @@ export class ProductsComponent implements OnInit {
        
     }
     OnSelectedfile(event){
-      this.selectedfile=event.target.file;
+      this.selectedfiles=event.target.files;
     }
 
+    uploadPhoto() {
+      this.progress=0;
+      this.currentFileUpload= this.selectedfiles.item(0)
+      
+      this.catService.uploadPhotoProduct(this.currentFileUpload, this.currentProduct.id).subscribe(event =>{
+        if(event.type==HttpEventType.UploadProgress){
+          this.progress = Math.round(100*event.loaded/event.total);
+        }else if(event instanceof HttpResponse){
+          alert("Fin de téléchargement...")
+        }
+      },err=>{
+      alert("Problème de chargement");
+      })
+      
+     this.selectedfiles = undefined;
+    }
 }

@@ -14,7 +14,9 @@
 									</button>
 								</p>
 								<p *ngIf="editPhoto==true && currentProduct==p">
-									<input type="file" (change)="OnSelectedfile($event)"/>
+									<input type="file" (change)="OnSelectedfile($event)">
+									<button class="btn btn-success" (click)="uploadPhoto()">Upload</button>
+									{{progress}}
 								</p>
 							</td>
 						</tr>
